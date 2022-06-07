@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -g -std=c++17  -shared -Wl,-soname,libutils.so -o ../../lib/libutils.so CMakeFiles/utils.dir/buffer.o CMakeFiles/utils.dir/current_thread.o CMakeFiles/utils.dir/inet_address.o CMakeFiles/utils.dir/logger.o CMakeFiles/utils.dir/logger_test.o CMakeFiles/utils.dir/socketops.o CMakeFiles/utils.dir/thread.o CMakeFiles/utils.dir/timestamp.o 
