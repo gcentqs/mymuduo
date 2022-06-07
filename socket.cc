@@ -29,10 +29,11 @@ void Socket::listen() {
 }
 
 int Socket::accept(InetAddress* peer_addr) {
-    // 使用accept4, 对
+    // 使用accept4 
     sockaddr_in addr;
     socklen_t len = sizeof peer_addr;
-    ::memset(&peer_addr, 0, sizeof peer_addr);
+    // bug!! ::memset(&peer_addr, 0, sizeof peer_addr);
+    ::memset(&addr, 0, sizeof addr);
     int connfd = ::accept4(sockfd_, (sockaddr *)&addr, &len, SOCK_NONBLOCK | SOCK_CLOEXEC);
     if (connfd >= 0) {
         peer_addr->setSockAddr(addr);
