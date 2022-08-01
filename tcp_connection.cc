@@ -91,18 +91,18 @@ void TcpConnection::sendInLoop(const void* data, size_t len) {
                 loop_->queueInLoop(
                     std::bind(write_complete_callback_, shared_from_this()));
             }
-        }
-    } else {
-        nwrote = 0;
-        if (errno != EWOULDBLOCK) {
-            LOG_ERROR("TcpConnection::sendInLoop()");
-            if (errno == EPIPE || errno == ECONNRESET) {
-                fault_error = true;
+        } else {
+            nwrote = 0;
+            if (errno != EWOULDBLOCK) {
+                LOG_ERROR("TcpConnection::sendInLoop()");
+                if (errno == EPIPE || errno == ECONNRESET) {
+                    fault_error = true;
+                }
             }
         }
     }
 
-    // 还没有写完
+    // 还没有写完，需要给 channel 注册 EPOLLOUT事件
     if (!fault_error && remaining > 0) {
         size_t old_len = output_buffer_.readableBytes();
         if (old_len + remaining >= high_water_mark_
