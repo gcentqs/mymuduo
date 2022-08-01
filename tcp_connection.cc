@@ -42,6 +42,7 @@ TcpConnection::TcpConnection(EventLoop* loop,
     , high_water_mark_(64 * 1024 * 1024) // 64MB
 {
     assert(loop_ != nullptr);
+    // LOG_INFO("channel_->setReadCallback()");
     channel_->setReadCallback(
         std::bind(&TcpConnection::handleRead, this, _1));
     channel_->setWriteCallback(
@@ -150,6 +151,7 @@ void TcpConnection::connectDestroyed() {
 }
 
 void TcpConnection::handleRead(TimeStamp receive_time) {
+    LOG_INFO("TcpConnection::handleRead()");
     int save_errno = 0;
     ssize_t n = input_buffer_.readFd(channel_->fd(), &save_errno);
     if (n > 0) {
@@ -158,7 +160,7 @@ void TcpConnection::handleRead(TimeStamp receive_time) {
         handleClose();
     } else {
         errno = save_errno;
-        LOG_ERROR("TcpConnection::handleRead()");
+        LOG_ERROR("TcpConnection::handleRead() read error");
         handleError();
     }
 }

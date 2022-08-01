@@ -29,7 +29,7 @@ EventLoopThread::~EventLoopThread() {
 
 EventLoop* EventLoopThread::startLoop() {
     assert(!thread_.started());
-    thread_.start(); 
+    thread_.start();    // 创建eventloop线程
 
     EventLoop* loop = nullptr;
     {

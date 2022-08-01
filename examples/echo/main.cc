@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
     muduo::EventLoop loop;
     muduo::utils::InetAddress listen_addr(2007);
     EchoServer server(&loop, listen_addr);
+    // server.setThreadNum(5);
     server.start();
     loop.loop();
 }

@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <poll.h>
 
+#include <iostream>
+
 using namespace muduo;
 
 const int Channel::kNoneEvent = 0;
@@ -61,7 +63,7 @@ void Channel::handleEvent(TimeStamp receive_time) {
 
 void Channel::handleEventWithGuard(TimeStamp receive_time) {
     event_handling_ = true;
-    LOG_INFO("channel handle events %s", reventsToString().c_str());
+    LOG_INFO("Channel::handleEvent() handle events %s", reventsToString().c_str());
 
     if ((revents_ & POLLHUP) && !(revents_ & POLLIN)) { // 关闭
         if (close_event_callback_) {

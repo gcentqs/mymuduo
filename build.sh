@@ -10,7 +10,7 @@ fi
 rm -fr `pwd`/build/*
 cd `pwd`/build &&
     cmake .. &&
-    make -j4
+    make -j16
 
 # 回到项目根目录
 cd ..

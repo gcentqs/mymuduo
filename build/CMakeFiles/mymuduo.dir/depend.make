@@ -65,6 +65,7 @@ CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../event_loop_thread.h
 CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../event_loop_thread_pool.cc
 CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../event_loop_thread_pool.h
 CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../utils/current_thread.h
+CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../utils/noncopyable.h
 CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/event_loop_thread_pool.o: ../utils/timestamp.h

@@ -77,10 +77,12 @@ void PollPoller::updateChannel(Channel* channel) {
 
 void PollPoller::removeChannel(Channel* channel) {
     Poller::assertInLoopThread();
-    LOG_INFO("fd = %d removed from poller", channel->fd());
+    LOG_INFO("PollPoller::removeChannel: fd = %d removed from poller", channel->fd());
     assert(channels_.count(channel->fd()) != 0);
     assert(channels_[channel->fd()] == channel);
     assert(channel->isNoneEvent());
+
+    channels_.erase(channel->fd());
 
     int idx = channel->index();
     // const struct pollfd& pfd = pollfds_[idx];

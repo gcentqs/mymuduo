@@ -4,6 +4,8 @@
 utils/CMakeFiles/utils.dir/buffer.o: ../utils/buffer.cc
 utils/CMakeFiles/utils.dir/buffer.o: ../utils/buffer.h
 utils/CMakeFiles/utils.dir/buffer.o: ../utils/copyable.h
+utils/CMakeFiles/utils.dir/buffer.o: ../utils/logger.h
+utils/CMakeFiles/utils.dir/buffer.o: ../utils/noncopyable.h
 
 utils/CMakeFiles/utils.dir/current_thread.o: ../utils/current_thread.cc
 utils/CMakeFiles/utils.dir/current_thread.o: ../utils/current_thread.h

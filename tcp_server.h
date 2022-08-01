@@ -68,7 +68,7 @@ private:
     WriteCompleteCallback write_complete_callback_;
     ThreadInitCallback thread_init_callback_;
 
-    int next_conn_id_;  
+    int next_conn_id_;  // 用于命名
     ConnectionMap connections_;
 };
 

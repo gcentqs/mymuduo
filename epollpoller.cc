@@ -24,7 +24,7 @@ const int kDeleted = 2;
 
 EpollPoller::EpollPoller(EventLoop *loop)
     : Poller(loop),
-      epollfd_(::epoll_create(EPOLL_CLOEXEC)),
+      epollfd_(::epoll_create1(EPOLL_CLOEXEC)),
       epoll_events_(kInitEventListSize)
 {
     if (epollfd_ < 0) {
@@ -78,7 +78,7 @@ void EpollPoller::fillActiveChanels(int num_events, ChannelList* active_channels
 void EpollPoller::updateChannel(Channel* channel) {
     Poller::assertInLoopThread();
     LOG_INFO("fd %d update events = %d", channel->fd(), channel->events());
-    int idx = channel->index();
+    int idx = channel->index(); // channel 目前的状态
     if (idx == kNew || idx == kDeleted) {
         // a new one, add with EPOLL_CTL_ADD
         int fd = channel->fd();
@@ -108,7 +108,7 @@ void EpollPoller::updateChannel(Channel* channel) {
 void EpollPoller::removeChannel(Channel* channel) {
     Poller::assertInLoopThread();
     int fd = channel->fd();
-    LOG_INFO("fd %d removed from epoller");
+    LOG_INFO("EpollPoller::removeChannel(): fd %d removed from epoller");
     assert(channels_.count(fd) && channels_[fd] == channel);
     assert(channel->isNoneEvent());
     int idx = channel->index();

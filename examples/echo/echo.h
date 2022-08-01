@@ -9,6 +9,7 @@ public:
     EchoServer(muduo::EventLoop* loop, const muduo::utils::InetAddress& local_addr);
     ~EchoServer() = default;
 
+    void setThreadNum(int thread_num);
     void start();
 
 private:

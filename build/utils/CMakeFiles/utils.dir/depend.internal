@@ -5,6 +5,8 @@ utils/CMakeFiles/utils.dir/buffer.o
  /root/code/mymuduo/utils/buffer.cc
  /root/code/mymuduo/utils/buffer.h
  /root/code/mymuduo/utils/copyable.h
+ /root/code/mymuduo/utils/logger.h
+ /root/code/mymuduo/utils/noncopyable.h
 utils/CMakeFiles/utils.dir/current_thread.o
  /root/code/mymuduo/utils/current_thread.cc
  /root/code/mymuduo/utils/current_thread.h

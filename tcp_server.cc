@@ -27,6 +27,7 @@ TcpServer::TcpServer(EventLoop* loop,
     , connection_callback_(defaultConnectionCallback)
     , message_callback_(defaultMessageCallback)
     , next_conn_id_(1)
+    , started_(0)
 {
     acceptor_->setNewConnectionCallback(
         std::bind(&TcpServer::newConnection, this, _1, _2)
@@ -42,7 +43,7 @@ void TcpServer::setThreadNum(int num_threads) {
 
 void TcpServer::start() {
     if (started_++ == 0) {    // 防止一个TcpServer对象被start多次
-        thread_pool_->start();
+        thread_pool_->start();  // 启动每一个eventloop thread及其loop
         loop_->runInLoop(std::bind(&Acceptor::listen, acceptor_.get()));
     }
 }
@@ -58,7 +59,7 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peer_addr) {
     LOG_INFO("TcpServer::newConnection: [%s accept new connection %s] from %s", 
              name_.c_str(),
              conn_name.c_str(),
-             peer_addr.toIpPort());
+             peer_addr.toIpPort().c_str());
     InetAddress local_addr(sockets::getLocalAddress(sockfd));
     TcpConnectionPtr conn(new TcpConnection(io_loop,
                                          conn_name,
@@ -88,7 +89,7 @@ void TcpServer::removeConnectionInLoop(const TcpConnectionPtr& conn) {
              name_.c_str(),
              conn->peerAddress().toIpPort().c_str());
     
-    size_t n = connections_.erase(conn->name());
+    size_t n = connections_.erase(conn->name()); 
     assert(n == 1);
     EventLoop* io_loop = conn->getEventLoop();
     io_loop->queueInLoop(

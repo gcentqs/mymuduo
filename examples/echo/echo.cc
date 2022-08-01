@@ -20,6 +20,7 @@ EchoServer::EchoServer(muduo::EventLoop* loop, const muduo::utils::InetAddress& 
 }
 
 void EchoServer::start() {
+    // LOG_INFO("EchoServer::start()");
     server_.start();
 }
 
@@ -32,11 +33,16 @@ void EchoServer::onConnection(const muduo::utils::TcpConnectionPtr& conn) {
 void EchoServer::onMessage(const muduo::utils::TcpConnectionPtr& conn,
                            muduo::utils::Buffer* buf,
                            muduo::utils::TimeStamp time) {
+    LOG_INFO("EchoServer::onMessage");
     std::string msg(buf->retriveAllAsString());
-    LOG_INFO("%s echo %d bytes data received at time %s",
+    LOG_INFO("%s echo %ld bytes data received at time %s",
               conn->name().c_str(),
-              msg.size(),
+              static_cast<long>(msg.size()),
               time.toString().c_str());
     conn->send(msg);
+}
+
+void EchoServer::setThreadNum(int thread_num) {
+    server_.setThreadNum(thread_num);
 }
 

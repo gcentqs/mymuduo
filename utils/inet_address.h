@@ -25,7 +25,7 @@ public:
     uint16_t toPort() const;
 
     const sockaddr_in* getSockAddr() const { return &addr_; }
-    void setSockAddr(const sockaddr_in &addr) { addr_ = addr; }
+    void setSockAddr(const sockaddr_in& addr) { addr_ = addr; }
     sa_family_t family() const { return addr_.sin_family; }
 
 private:

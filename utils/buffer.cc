@@ -1,4 +1,5 @@
 #include "buffer.h"
+#include "logger.h"
 
 #include <sys/uio.h>
 #include <unistd.h>

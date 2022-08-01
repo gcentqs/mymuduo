@@ -42,7 +42,7 @@ private:
     bool joined_;
     std::shared_ptr<std::thread> thread_;
     pid_t tid_; // 在线程创建的时候绑定
-    ThreadFunc func_;   // 线程回调函数
+    ThreadFunc func_;   // 线程函数
     static std::atomic_int num_created_;
 };
 

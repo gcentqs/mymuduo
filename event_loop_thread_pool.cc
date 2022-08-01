@@ -2,6 +2,8 @@
 #include "event_loop_thread.h"
 #include "event_loop_thread_pool.h"
 
+#include "utils/logger.h"
+
 #include <assert.h>
 
 
