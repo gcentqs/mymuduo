@@ -103,7 +103,7 @@ private:
          * | kCheapPrepend |xxx| reader | writer |                     // xxx标示reader中已读的部分
          * | kCheapPrepend | reader ｜          len          |
          **/
-        if (writableBytes() + readableBytes() < len + kCheapPrepend) {
+        if (writableBytes() + prependableBytes() < len + kCheapPrepend) {
             buffer_.resize(writer_index_ + len);
         } else {
             size_t readable = readableBytes();
