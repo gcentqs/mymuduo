@@ -40,7 +40,7 @@ ssize_t Buffer::readFd(int fd, int* save_errno) {
     } else if (n < writable) {
         writer_index_ += n;
     } else {
-        writer_index_ += buffer_.size();
+        writer_index_ = buffer_.size();
         append(extra_buf, n - writable);
     }
     return n;
