@@ -7,6 +7,7 @@ utils/CMakeFiles/utils.dir/buffer.o
  /root/code/mymuduo/utils/copyable.h
  /root/code/mymuduo/utils/logger.h
  /root/code/mymuduo/utils/noncopyable.h
+ /root/code/mymuduo/utils/thread.h
 utils/CMakeFiles/utils.dir/current_thread.o
  /root/code/mymuduo/utils/current_thread.cc
  /root/code/mymuduo/utils/current_thread.h
@@ -17,16 +18,19 @@ utils/CMakeFiles/utils.dir/logger.o
  /root/code/mymuduo/utils/logger.cc
  /root/code/mymuduo/utils/logger.h
  /root/code/mymuduo/utils/noncopyable.h
+ /root/code/mymuduo/utils/thread.h
  /root/code/mymuduo/utils/timestamp.h
 utils/CMakeFiles/utils.dir/logger_test.o
  /root/code/mymuduo/utils/logger.h
  /root/code/mymuduo/utils/logger_test.cc
  /root/code/mymuduo/utils/noncopyable.h
+ /root/code/mymuduo/utils/thread.h
 utils/CMakeFiles/utils.dir/socketops.o
  /root/code/mymuduo/utils/logger.h
  /root/code/mymuduo/utils/noncopyable.h
  /root/code/mymuduo/utils/socketops.cc
  /root/code/mymuduo/utils/socketops.h
+ /root/code/mymuduo/utils/thread.h
 utils/CMakeFiles/utils.dir/thread.o
  /root/code/mymuduo/utils/current_thread.h
  /root/code/mymuduo/utils/noncopyable.h

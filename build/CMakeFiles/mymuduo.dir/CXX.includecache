@@ -37,14 +37,36 @@ string
 ../utils/logger.h
 noncopyable.h
 ../utils/noncopyable.h
+thread.h
+../utils/thread.h
 pthread.h
 -
 stdio.h
 -
 string
 -
+queue
+-
+mutex
+-
+condition_variable
+-
 
 ../utils/noncopyable.h
+
+../utils/thread.h
+noncopyable.h
+../utils/noncopyable.h
+atomic
+-
+functional
+-
+memory
+-
+string
+-
+thread
+-
 
 ../utils/timestamp.h
 inttypes.h
@@ -377,11 +399,19 @@ string
 /root/code/mymuduo/utils/logger.h
 noncopyable.h
 /root/code/mymuduo/utils/noncopyable.h
+thread.h
+/root/code/mymuduo/utils/thread.h
 pthread.h
 -
 stdio.h
 -
 string
+-
+queue
+-
+mutex
+-
+condition_variable
 -
 
 /root/code/mymuduo/utils/noncopyable.h

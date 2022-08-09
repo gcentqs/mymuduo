@@ -11,10 +11,12 @@ CMakeFiles/mymuduo.dir/acceptor.o: ../utils/inet_address.h
 CMakeFiles/mymuduo.dir/acceptor.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/acceptor.o: ../utils/noncopyable.h
 CMakeFiles/mymuduo.dir/acceptor.o: ../utils/socketops.h
+CMakeFiles/mymuduo.dir/acceptor.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/acceptor.o: ../utils/timestamp.h
 
 CMakeFiles/mymuduo.dir/channel.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/channel.o: ../utils/noncopyable.h
+CMakeFiles/mymuduo.dir/channel.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/channel.o: ../channel.cc
 CMakeFiles/mymuduo.dir/channel.o: ../channel.h
 CMakeFiles/mymuduo.dir/channel.o: ../event_loop.h
@@ -40,6 +42,7 @@ CMakeFiles/mymuduo.dir/epollpoller.o: ../poller.h
 CMakeFiles/mymuduo.dir/epollpoller.o: ../utils/current_thread.h
 CMakeFiles/mymuduo.dir/epollpoller.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/epollpoller.o: ../utils/noncopyable.h
+CMakeFiles/mymuduo.dir/epollpoller.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/epollpoller.o: ../utils/timestamp.h
 
 CMakeFiles/mymuduo.dir/event_loop.o: ../utils/current_thread.h
@@ -50,6 +53,7 @@ CMakeFiles/mymuduo.dir/event_loop.o: ../poller.h
 CMakeFiles/mymuduo.dir/event_loop.o: ../utils/current_thread.h
 CMakeFiles/mymuduo.dir/event_loop.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/event_loop.o: ../utils/noncopyable.h
+CMakeFiles/mymuduo.dir/event_loop.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/event_loop.o: ../utils/timestamp.h
 
 CMakeFiles/mymuduo.dir/event_loop_thread.o: ../event_loop.h
@@ -80,6 +84,7 @@ CMakeFiles/mymuduo.dir/poller.o: ../utils/timestamp.h
 
 CMakeFiles/mymuduo.dir/pollpoller.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/pollpoller.o: ../utils/noncopyable.h
+CMakeFiles/mymuduo.dir/pollpoller.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/pollpoller.o: ../channel.h
 CMakeFiles/mymuduo.dir/pollpoller.o: ../event_loop.h
 CMakeFiles/mymuduo.dir/pollpoller.o: ../poller.h
@@ -95,6 +100,7 @@ CMakeFiles/mymuduo.dir/socket.o: ../socket.h
 CMakeFiles/mymuduo.dir/socket.o: ../utils/inet_address.h
 CMakeFiles/mymuduo.dir/socket.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/socket.o: ../utils/noncopyable.h
+CMakeFiles/mymuduo.dir/socket.o: ../utils/thread.h
 
 CMakeFiles/mymuduo.dir/tcp_connection.o: ../channel.h
 CMakeFiles/mymuduo.dir/tcp_connection.o: ../event_loop.h
@@ -109,6 +115,7 @@ CMakeFiles/mymuduo.dir/tcp_connection.o: ../utils/inet_address.h
 CMakeFiles/mymuduo.dir/tcp_connection.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/tcp_connection.o: ../utils/noncopyable.h
 CMakeFiles/mymuduo.dir/tcp_connection.o: ../utils/socketops.h
+CMakeFiles/mymuduo.dir/tcp_connection.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/tcp_connection.o: ../utils/timestamp.h
 
 CMakeFiles/mymuduo.dir/tcp_server.o: ../acceptor.h
@@ -127,5 +134,6 @@ CMakeFiles/mymuduo.dir/tcp_server.o: ../utils/inet_address.h
 CMakeFiles/mymuduo.dir/tcp_server.o: ../utils/logger.h
 CMakeFiles/mymuduo.dir/tcp_server.o: ../utils/noncopyable.h
 CMakeFiles/mymuduo.dir/tcp_server.o: ../utils/socketops.h
+CMakeFiles/mymuduo.dir/tcp_server.o: ../utils/thread.h
 CMakeFiles/mymuduo.dir/tcp_server.o: ../utils/timestamp.h
 

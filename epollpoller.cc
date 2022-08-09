@@ -108,7 +108,7 @@ void EpollPoller::updateChannel(Channel* channel) {
 void EpollPoller::removeChannel(Channel* channel) {
     Poller::assertInLoopThread();
     int fd = channel->fd();
-    LOG_INFO("EpollPoller::removeChannel(): fd %d removed from epoller");
+    LOG_INFO("EpollPoller::removeChannel(): fd %d removed from epoller", fd);
     assert(channels_.count(fd) && channels_[fd] == channel);
     assert(channel->isNoneEvent());
     int idx = channel->index();

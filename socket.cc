@@ -18,7 +18,7 @@ void Socket::bindAddress(const InetAddress& local_addr) {
     if (0 != ::bind(sockfd_,
         (sockaddr *)(local_addr.getSockAddr()),
         sizeof(sockaddr_in)) ) {
-        LOG_FATAL("%s : %s bind address %s failed\n", __FILE__, __FUNCTION__, local_addr.toIpPort());
+        LOG_FATAL("%s : %s bind address %s failed\n", __FILE__, __FUNCTION__, local_addr.toIpPort().c_str());
     }
 }
 

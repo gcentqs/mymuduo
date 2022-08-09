@@ -3,7 +3,7 @@
 #include "logger.h"
 
 #include <assert.h>
-#include <algorithm>>
+#include <algorithm>
 
 using namespace muduo;
 

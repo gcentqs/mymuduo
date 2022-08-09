@@ -2,9 +2,14 @@
 #define MYMUDUO_UTILS_LOGGER_H
 
 #include "noncopyable.h"
+#include "thread.h"
+
 #include <pthread.h>
 #include <stdio.h>
 #include <string>
+#include <queue>
+#include <mutex>
+#include <condition_variable>
 
 
 // namespace muduo
@@ -12,6 +17,7 @@
 
 // namespace utils
 // {
+using muduo::utils::Thread;
 
 enum LogLevel
 {
@@ -33,8 +39,10 @@ public:
     void log(std::string msg);
 
 private:
-    Logger() {}
+    Logger();
     ~Logger() {}
+
+    void logThreadFunc();
 
     static void init() {
         logger_ = new Logger();
@@ -43,6 +51,12 @@ private:
     static pthread_once_t ponce_;
     static Logger* logger_;
     int log_level_;
+
+    // 与 log 队列相关的对象
+    Thread log_thread_;
+    std::queue<std::string> log_queue_;
+    std::mutex mutex_;
+    std::condition_variable cond_;
 };
 
 // } // utils
