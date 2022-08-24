@@ -56,10 +56,10 @@ void TcpServer::newConnection(int sockfd, const InetAddress& peer_addr) {
     char buf[64] = {0};
     snprintf(buf, sizeof buf, "-%s#%d", ip_port_.c_str(), next_conn_id_++);
     std::string conn_name = name_ + buf;
-    LOG_INFO("TcpServer::newConnection: [%s accept new connection %s] from %s", 
-             name_.c_str(),
-             conn_name.c_str(),
-             peer_addr.toIpPort().c_str());
+    // LOG_INFO("TcpServer::newConnection: [%s accept new connection %s] from %s", 
+    //          name_.c_str(),
+    //          conn_name.c_str(),
+    //          peer_addr.toIpPort().c_str());
     InetAddress local_addr(sockets::getLocalAddress(sockfd));
     TcpConnectionPtr conn(new TcpConnection(io_loop,
                                          conn_name,
@@ -84,10 +84,10 @@ void TcpServer::removeConnection(const TcpConnectionPtr& conn) {
 
 void TcpServer::removeConnectionInLoop(const TcpConnectionPtr& conn) {
     loop_->assertInLoopThread();
-    LOG_INFO("TcpServer::removeConnectionInLoop: [%s removed connection %s] from %s",
-             conn->name().c_str(),
-             name_.c_str(),
-             conn->peerAddress().toIpPort().c_str());
+    // LOG_INFO("TcpServer::removeConnectionInLoop: [%s removed connection %s] from %s",
+    //          conn->name().c_str(),
+    //          name_.c_str(),
+    //          conn->peerAddress().toIpPort().c_str());
     
     size_t n = connections_.erase(conn->name()); 
     assert(n == 1);

@@ -13,6 +13,7 @@
 // using muduo::utils::InetAddress;
 // using muduo::utils::ConnectionCallback;
 using namespace muduo::utils;
+// using muduo::utils::Buffer;
 using namespace muduo;
 struct tcp_info;
 /* using muduo::utils::Buffer; */
@@ -23,6 +24,7 @@ namespace muduo
 class Channel;
 class EventLoop;
 class Socket;
+
 
 class TcpConnection : noncopyable,
                       public std::enable_shared_from_this<TcpConnection>
@@ -43,7 +45,12 @@ public:
     bool connected() const { return state_ == kConnected; }
     bool disconnected() const { return state_ == kDisconnected; }
 
+    void setContext(const std::any& context) { context_ = context; }
+    const std::any getContext() const { return context_; }
+    std::any* getMutableContext() { return &context_; }
+
     void send(const std::string& buf);
+    void send(const char* buf, size_t len);
 
     void shutdown();
 
@@ -63,8 +70,8 @@ public:
     void connectEstablished();
     void connectDestroyed();
 
-    Buffer* inputBuffer();
-    Buffer* outputBuffer();
+    utils::Buffer* inputBuffer() { return &input_buffer_; }
+    utils::Buffer* outputBuffer() { return &output_buffer_; }
 
 private:
     enum StateE { kDisconnected, kConnecting, kConnected, kDisconnecting};

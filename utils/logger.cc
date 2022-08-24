@@ -31,38 +31,43 @@ Logger::Logger()
 
 void Logger::logThreadFunc() {
     while (true) {
-        {
-            std::unique_lock<std::mutex> lock(mutex_);
-            while (log_queue_.empty()) {
-                cond_.wait(lock);
-            }
-            std::string logmsg = log_queue_.front();
-            log_queue_.pop();
-            std::cout << logmsg << std::endl;
-        }
+        std::string logmsg = popLog();
+        // 写入标准输出或者是写入文件
+        std::cout << logmsg << std::endl;
     }
 }
 
+std::string Logger::popLog() {
+    std::unique_lock<std::mutex> lock(mutex_);
+    while (log_queue_.empty()) {
+        cond_.wait(lock);
+    }
+    std::string logmsg = log_queue_.front();
+    log_queue_.pop();
+    return logmsg;
+}
+
 void Logger::log(std::string msg) {
+    std::string logmsg;
     switch (log_level_) {
     case INFO:
-        std::cout << "[INFO]";
+        logmsg = "[INFO]";
         break;
     case ERROR:
-        std::cout << "[ERROR]";
+        logmsg = "[ERROR]";
         break;
     case FATAL:
-        std::cout << "[FATAL]";
+        logmsg = "[FATAL]";
         break;
     case DEBUG:
-        std::cout << "[DEBUG]";
+        logmsg = "[DEBUG]";
         break;
     default:
         break;
     }
 
     // std::cout << TimeStamp::now().toString() << " " << msg << std::endl;
-    std::string logmsg{TimeStamp::now().toString() + " " + msg};
+    logmsg += TimeStamp::now().toString() + " " + msg;
     {
         std::unique_lock<std::mutex> lock(mutex_);
         log_queue_.emplace(logmsg);

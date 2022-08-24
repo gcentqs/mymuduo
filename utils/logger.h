@@ -42,6 +42,7 @@ private:
     Logger();
     ~Logger() {}
 
+    std::string popLog();
     void logThreadFunc();
 
     static void init() {

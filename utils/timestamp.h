@@ -20,6 +20,8 @@ public:
 
     static const int kMicroSecondsPerSecond = 1000 * 1000; 
 
+    void swap(TimeStamp& rhs) { std::swap(microseconds_since_epoch_, rhs.microseconds_since_epoch_); }
+
 private:
     int64_t microseconds_since_epoch_;  // 记录从linux epoch到某一时间的微秒数
 };

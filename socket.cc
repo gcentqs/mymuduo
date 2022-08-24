@@ -38,7 +38,7 @@ int Socket::accept(InetAddress* peer_addr) {
     if (connfd >= 0) {
         peer_addr->setSockAddr(addr);
     } else {
-        LOG_ERROR("%s : %s accept failed\n", __FILE__, __FUNCTION__);
+        // LOG_ERROR("%s : %s accept failed\n", __FILE__, __FUNCTION__);
     }
     return connfd;
 }

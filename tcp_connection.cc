@@ -15,9 +15,9 @@ using namespace std::placeholders;
 
 
 void utils::defaultConnectionCallback(const TcpConnectionPtr& conn) {
-    LOG_INFO("%s -> %s : %s", conn->localAddress().toIpPort().c_str(),
-                              conn->peerAddress().toIpPort().c_str(),
-                              (conn->connected() ? "UP" : "Down"));
+    // LOG_INFO("%s -> %s : %s", conn->localAddress().toIpPort().c_str(),
+    //                           conn->peerAddress().toIpPort().c_str(),
+    //                           (conn->connected() ? "UP" : "Down"));
 }
 
 void utils::defaultMessageCallback(const TcpConnectionPtr& conn,
@@ -53,6 +53,7 @@ TcpConnection::TcpConnection(EventLoop* loop,
         std::bind(&TcpConnection::handleError, this));
     LOG_DEBUG("TcpConnection::TcpConection at fd = %d", sockfd_);
     socket_->setKeepAlive(true);
+    socket_->setTcpNoDelay(true);
 }
 
 TcpConnection::~TcpConnection() {
@@ -69,6 +70,17 @@ void TcpConnection::send(const std::string& buf) {
         } else {
             loop_->runInLoop(
                 std::bind(&TcpConnection::sendInLoop, this, buf.c_str(), buf.size()));
+        }
+    }
+}
+
+void TcpConnection::send(const char* buf, size_t len) {
+    if (state_ == kConnected) {
+        if (loop_->isInLoopThread()) {
+            sendInLoop(buf, len);
+        } else {
+            loop_->runInLoop(
+                std::bind(&TcpConnection::sendInLoop, this, buf, len));
         }
     }
 }
@@ -151,7 +163,7 @@ void TcpConnection::connectDestroyed() {
 }
 
 void TcpConnection::handleRead(TimeStamp receive_time) {
-    LOG_INFO("TcpConnection::handleRead()");
+    // LOG_INFO("TcpConnection::handleRead()");
     int save_errno = 0;
     ssize_t n = input_buffer_.readFd(channel_->fd(), &save_errno);
     if (n > 0) {
@@ -190,8 +202,8 @@ void TcpConnection::handleWrite() {
 }
 
 void TcpConnection::handleClose() {
-    LOG_INFO("TcpConnection::handleClose() fd = %d, state = %d", channel_->fd(),
-                                                                 static_cast<int>(state_));
+    // LOG_INFO("TcpConnection::handleClose() fd = %d, state = %d", channel_->fd(),
+                                                                //  static_cast<int>(state_));
     setState(kDisconnected);
     channel_->disableAll();
     TcpConnectionPtr guard_this(shared_from_this());

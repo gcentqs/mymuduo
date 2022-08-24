@@ -6,6 +6,8 @@
 
 using namespace muduo::utils;
 
+
+const char Buffer::kCRLF[] = "\r\n";
 /**
  * 从fd读取数据是 LT模式
  * 从socket读到缓冲区是用readv先读到buffer中  

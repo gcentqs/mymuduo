@@ -13,15 +13,15 @@ PollPoller::PollPoller(EventLoop* loop)
 PollPoller::~PollPoller() = default;
 
 TimeStamp PollPoller::poll(int timeout_ms, ChannelList* active_channels_) {
-    LOG_INFO("PollPoller::poll()");
+    // LOG_INFO("PollPoller::poll()");
     int num_events = ::poll(pollfds_.data(), pollfds_.size(), timeout_ms);
     int saved_errno = errno;
     TimeStamp now(TimeStamp::now());
     if (num_events > 0) {
-        LOG_INFO("%d events happened\n", num_events);
+        // LOG_INFO("%d events happened\n", num_events);
         fillActiveChannels(num_events, active_channels_);
     } else if (num_events == 0){
-        LOG_INFO("nothing happened");
+        // LOG_INFO("nothing happened");
     } else {
         if (errno != EINTR) {
             LOG_ERROR("PollPoller::poll()");
@@ -48,7 +48,7 @@ void PollPoller::fillActiveChannels(int num_events, ChannelList* active_channels
 
 void PollPoller::updateChannel(Channel* channel) {
     Poller::assertInLoopThread();
-    LOG_INFO("fd = %d update events = %d", channel->fd(), channel->events());
+    // LOG_INFO("fd = %d update events = %d", channel->fd(), channel->events());
     if (channel->index() < 0) { 
         // 未初始化，新增加一个在pollfds_中
         assert(channels_.count(channel->fd()) ==  0);
@@ -77,7 +77,7 @@ void PollPoller::updateChannel(Channel* channel) {
 
 void PollPoller::removeChannel(Channel* channel) {
     Poller::assertInLoopThread();
-    LOG_INFO("PollPoller::removeChannel: fd = %d removed from poller", channel->fd());
+    // LOG_INFO("PollPoller::removeChannel: fd = %d removed from poller", channel->fd());
     assert(channels_.count(channel->fd()) != 0);
     assert(channels_[channel->fd()] == channel);
     assert(channel->isNoneEvent());

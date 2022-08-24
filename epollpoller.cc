@@ -28,7 +28,7 @@ EpollPoller::EpollPoller(EventLoop *loop)
       epoll_events_(kInitEventListSize)
 {
     if (epollfd_ < 0) {
-        LOG_INFO("EpollPoller::EpollPoller()");
+        // LOG_INFO("EpollPoller::EpollPoller()");
     }
 }
 
@@ -37,7 +37,7 @@ EpollPoller::~EpollPoller() {
 }
 
 TimeStamp EpollPoller::poll(int timeout_ms, ChannelList* active_channels) {
-    LOG_INFO("EpollPoller::poll()");
+    // LOG_INFO("EpollPoller::poll()");
     int num_events = ::epoll_wait(epollfd_,
                                   epoll_events_.data(),
                                   static_cast<int>(epoll_events_.size()),
@@ -45,13 +45,13 @@ TimeStamp EpollPoller::poll(int timeout_ms, ChannelList* active_channels) {
     int saved_errno = errno;
     TimeStamp now(TimeStamp::now());
     if (num_events > 0) {
-        LOG_INFO("%d events happend", num_events);
+        // LOG_INFO("%d events happend", num_events);
         fillActiveChanels(num_events, active_channels);
         if (static_cast<size_t>(num_events) == epoll_events_.size()) {
             epoll_events_.resize(epoll_events_.size() * 2);
         }
     } else if (num_events == 0) {
-        LOG_INFO("nothing happened");
+        // LOG_INFO("nothing happened");
     } else {
         if (saved_errno != EINTR) {
             errno = saved_errno;
@@ -77,7 +77,7 @@ void EpollPoller::fillActiveChanels(int num_events, ChannelList* active_channels
 
 void EpollPoller::updateChannel(Channel* channel) {
     Poller::assertInLoopThread();
-    LOG_INFO("fd %d update events = %d", channel->fd(), channel->events());
+    // LOG_INFO("fd %d update events = %d", channel->fd(), channel->events());
     int idx = channel->index(); // channel 目前的状态
     if (idx == kNew || idx == kDeleted) {
         // a new one, add with EPOLL_CTL_ADD
@@ -108,7 +108,7 @@ void EpollPoller::updateChannel(Channel* channel) {
 void EpollPoller::removeChannel(Channel* channel) {
     Poller::assertInLoopThread();
     int fd = channel->fd();
-    LOG_INFO("EpollPoller::removeChannel(): fd %d removed from epoller", fd);
+    // LOG_INFO("EpollPoller::removeChannel(): fd %d removed from epoller", fd);
     assert(channels_.count(fd) && channels_[fd] == channel);
     assert(channel->isNoneEvent());
     int idx = channel->index();

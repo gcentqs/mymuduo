@@ -45,6 +45,7 @@ void Acceptor::listen() {
 void Acceptor::handleRead() {
     loop_->assertInLoopThread();
     InetAddress peer_addr;
+    /*
     int connfd = accept_socket_.accept(&peer_addr);
     if (connfd >= 0) {
         if (new_connection_callback_) {
@@ -59,6 +60,26 @@ void Acceptor::handleRead() {
             idle_fd_ = ::accept(accept_socket_.fd(), NULL, NULL);
             ::close(idle_fd_);
             idle_fd_ = ::open("/dev/null", O_RDONLY | O_CLOEXEC);
+        }
+    }
+    */
+    while (true) {
+        int connfd = accept_socket_.accept(&peer_addr);
+        if (connfd >= 0) {
+            if (new_connection_callback_) {
+                new_connection_callback_(connfd, peer_addr);
+            } else {
+                sockets::close(connfd);
+            }
+        } else {
+            if (errno == EMFILE) {  // 文件描述符过多
+                // LOG_ERROR("Acceptor::handleRead accept failed for EMFILE");
+                ::close(idle_fd_);
+                idle_fd_ = ::accept(accept_socket_.fd(), NULL, NULL);
+                ::close(idle_fd_);
+                idle_fd_ = ::open("/dev/null", O_RDONLY | O_CLOEXEC);
+            } 
+            break;
         }
     }
 }

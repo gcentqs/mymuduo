@@ -25,20 +25,20 @@ void EchoServer::start() {
 }
 
 void EchoServer::onConnection(const muduo::utils::TcpConnectionPtr& conn) {
-    LOG_INFO("EchoServer : %s -> %s is %s", conn->peerAddress().toIpPort().c_str(),
-                                            conn->localAddress().toIpPort().c_str(),
-                                            (conn->connected()) ? "UP" : "DOWN");
+    // LOG_INFO("EchoServer : %s -> %s is %s", conn->peerAddress().toIpPort().c_str(),
+    //                                         conn->localAddress().toIpPort().c_str(),
+    //                                         (conn->connected()) ? "UP" : "DOWN");
 }
 
 void EchoServer::onMessage(const muduo::utils::TcpConnectionPtr& conn,
                            muduo::utils::Buffer* buf,
                            muduo::utils::TimeStamp time) {
-    LOG_INFO("EchoServer::onMessage");
+    // LOG_INFO("EchoServer::onMessage");
     std::string msg(buf->retriveAllAsString());
-    LOG_INFO("%s echo %ld bytes data received at time %s",
-              conn->name().c_str(),
-              static_cast<long>(msg.size()),
-              time.toString().c_str());
+    // LOG_INFO("%s echo %ld bytes data received at time %s",
+    //           conn->name().c_str(),
+    //           static_cast<long>(msg.size()),
+    //           time.toString().c_str());
     conn->send(msg);
 }
 

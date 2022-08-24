@@ -46,7 +46,8 @@ public:
     bool eventHandling() { return event_handling_; }
 
     void setContext(std::any context) { context_ = context; }
-    std::any getContext() { return context_; }
+    const std::any getContext() const { return context_; }
+    std::any* getMutableContext() { return &context_; }
 
     // 调用poller中的对应方法
     void updateChannel(Channel *);
@@ -81,7 +82,7 @@ private:
 
     std::unique_ptr<Poller> poller_;
 
-    int wakeup_fd_; // 用于mainloop唤醒subloop中的poller, 处理新到来的连接
+    int wakeup_fd_; // 用于唤醒 eventloop，防止阻塞过久导致事件得不到及时处理
     std::unique_ptr<Channel> wakeup_channel_;   // wakeup_fd_对应的channel
 
     ChannelList active_channels_;   //返回poller所关注的所有就绪的channel列表

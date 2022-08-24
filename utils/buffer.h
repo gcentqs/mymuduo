@@ -2,11 +2,14 @@
 #define MUDUO_UTILS_BUFFER_H
 
 #include "copyable.h"
+#include "logger.h"
+
+#include <algorithm>
+#include <string>
+#include <vector>
 
 #include <assert.h>
 #include <stdlib.h>
-#include <string>
-#include <vector>
 
 namespace muduo
 {
@@ -29,6 +32,7 @@ class Buffer : public copyable
 public:    
     static const size_t kCheapPrepend = 8;  // 头部长度
     static const size_t kInitialSize = 1024;    // buf初始长度
+    static const char kCRLF[];
 public:
     explicit Buffer(size_t inital_size = kInitialSize)
         : buffer_(kInitialSize)
@@ -58,6 +62,11 @@ public:
             retrieveAll();
         }
     }
+    void retrieveUntil(const char* end) {
+        assert(peek() <= end);
+        assert(end <= beginWrite());
+        retrieve(end - peek());
+    }
     void retrieveAll() {
         reader_index_ = kCheapPrepend;
         writer_index_ = kCheapPrepend;
@@ -73,10 +82,18 @@ public:
         return res;
     }
 
+    const char* findCRLF() const {
+        const char* crlf = std::search(peek(), beginWrite(), kCRLF, kCRLF + 2);
+        return crlf == beginWrite() ? nullptr : crlf;
+    }
 
     void append(const char* data, size_t len) {
         ensureWritableBytes(len);
         std::copy(data, data + len, beginWrite());
+    }
+
+    void append(const std::string& data) {
+        append(data.c_str(), data.size());
     }
 
     void ensureWritableBytes(size_t len) {

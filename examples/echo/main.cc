@@ -7,11 +7,11 @@
 
 int main(int argc, char* argv[])
 {
-    LOG_INFO("pid = %d", getpid());
+    // LOG_INFO("pid = %d", getpid());
     muduo::EventLoop loop;
     muduo::utils::InetAddress listen_addr(2007);
     EchoServer server(&loop, listen_addr);
-    server.setThreadNum(5);
+    // server.setThreadNum(5);
     server.start();
     loop.loop();
 }
